@@ -1,0 +1,30 @@
+
+from  pyb import Timer, Pin
+import time
+timmer = pyb.Timer(5 , freq=300)
+channel = timmer.channel(3, Timer.PWM, pin=Pin('X1'), pulse_width_percent=30)
+
+def pause():
+    channel.pulse_width_percent(0)
+    time.sleep(0.1)
+    channel.pulse_width_percent(100)
+    
+def joue(note,temps):
+    dict_temps={"croche":0.25, "noire":0.5,"blanche":1} #dictionnaire
+    dict_freq={"Do":262,"Re":294,"Mi":330,"Fa":349,"Sol":392,"La":440,"Si":494}
+    duree=dict_temps[temps]
+    freq=dict_freq[note]
+    timmer.freq(freq)
+    time.sleep(duree)
+    pause()
+    
+joue("Mi","noire")
+joue("Do","noire")
+joue("Sol","noire")
+joue("Mi","noire")
+joue("Do","noire")
+joue("Mi","noire")
+joue("Do","noire")
+
+
+
